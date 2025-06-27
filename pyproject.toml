@@ -1,5 +1,5 @@
 [project]
-name = "pip install -upgrade pip"
+name = "marketplace"
 version = "0.1.0"
 description = ""
 authors = [
@@ -8,6 +8,11 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "pytest (>=8.4.1,<9.0.0)",
+    "pytest-cov (>=6.2.1,<7.0.0)",
+    "flake8 (>=7.3.0,<8.0.0)",
+    "black (>=25.1.0,<26.0.0)",
+    "isort (>=6.0.1,<7.0.0)"
 ]
 
 
