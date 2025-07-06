@@ -1,31 +1,26 @@
 class Product:
-    """Класс для отображения продукции"""
-    def __init__(self, name, description, price, quantity):
+    def __init__(self, name: str, description: str, price: float, quantity: int):
         self.name = name
         self.description = description
-        self.__price = float(price)  # Приватный атрибут
+        self.__price = float(price)
         self.quantity = quantity
-
-    @classmethod
-    def new_product(cls, product_dict):
-        """Класс-метод для создания продукта из словаря"""
-        return cls(
-            name=product_dict['name'],
-            description=product_dict['description'],
-            price=product_dict['price'],
-            quantity=product_dict['quantity']
-        )
 
     @property
     def price(self):
-        """Геттер для цены"""
         return self.__price
 
     @price.setter
     def price(self, value):
-        """Сеттер для цены с проверкой"""
         value = float(value)
         if value <= 0:
-            print("Цена не должна быть нулевая или отрицательная")
-        else:
-            self.__price = value
+            raise ValueError("Цена должна быть положительной")
+        self.__price = value
+
+    @classmethod
+    def new_product(cls, product_data):
+        return cls(
+            name=product_data['name'],
+            description=product_data['description'],
+            price=product_data['price'],
+            quantity=product_data['quantity']
+        )
