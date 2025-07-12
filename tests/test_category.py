@@ -40,3 +40,21 @@ def test_counters():
 
     assert Category.category_count == initial_cat + 1
     assert Category.product_count == initial_prod + 2
+
+
+def test_category_str():
+    p1 = Product("P1", "Desc", 10.0, 1)
+    p2 = Product("P2", "Desc", 20.0, 2)
+    category = Category("Test", "Desc", [p1, p2])
+    assert str(category) == "Test, количество продуктов: 3 шт."
+
+
+def test_category_iterator():
+    p1 = Product("P1", "Desc", 10.0, 1)
+    p2 = Product("P2", "Desc", 20.0, 2)
+    category = Category("Test", "Desc", [p1, p2])
+
+    products = list(category)
+    assert len(products) == 2
+    assert products[0] == p1
+    assert products[1] == p2

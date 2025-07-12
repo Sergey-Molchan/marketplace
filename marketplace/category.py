@@ -12,13 +12,16 @@ class Category:
     @property
     def products(self):
         """Геттер для отображения товаров"""
-        return "\n".join(
-            f"{p.name}, {int(p.price)} руб. Остаток: {p.quantity} шт."
-            for p in self.__products
-        )
+        return "\n".join(str(p) for p in self.__products)
 
     def add_product(self, product):
         """Метод для добавления товара"""
         self.__products.append(product)
         Category.product_count += 1
 
+    def __str__(self):
+        total_quantity = sum(p.quantity for p in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
+
+    def __iter__(self):
+        return iter(self.__products)
