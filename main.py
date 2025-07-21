@@ -1,4 +1,3 @@
-from marketplace.product import Product
 from marketplace.category import Category
 from marketplace.product import Smartphone
 from marketplace.product import LawnGrass
