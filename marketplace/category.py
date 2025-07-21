@@ -5,6 +5,23 @@ class Category:
     def __init__(self, name: str, description: str, products: list):
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = products
         Category.category_count += 1
         Category.product_count += len(products)
+
+    @property
+    def products(self):
+        """Геттер для отображения товаров"""
+        return "\n".join(str(p) for p in self.__products)
+
+    def add_product(self, product):
+        """Метод для добавления товара"""
+        self.__products.append(product)
+        Category.product_count += 1
+
+    def __str__(self):
+        total_quantity = sum(p.quantity for p in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
+
+    def __iter__(self):
+        return iter(self.__products)
