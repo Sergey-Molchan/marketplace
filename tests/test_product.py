@@ -1,6 +1,8 @@
 import pytest
 from marketplace.product import Product
-
+from marketplace.product import LawnGrass
+from marketplace.product import Smartphone
+from marketplace.category import Category
 
 def test_product_init():
     product = Product("Test", "Desc", 100.0, 5)
@@ -48,3 +50,31 @@ def test_product_add():
 
     with pytest.raises(TypeError):
         p1 + "not a product"
+
+# test_product.py (дополнение)
+def test_smartphone_init():
+    phone = Smartphone("iPhone", "Cool phone", 1000.0, 10, 95.5, "13 Pro", 256, "Black")
+    assert phone.name == "iPhone"
+    assert phone.memory == 256
+    assert phone.color == "Black"
+
+def test_lawn_grass_init():
+    grass = LawnGrass("Grass", "Green grass", 50.0, 100, "Russia", "2 weeks", "Green")
+    assert grass.country == "Russia"
+    assert grass.germination_period == "2 weeks"
+
+def test_add_same_class_products():
+    p1 = Smartphone("Phone1", "Desc", 100, 2, 90, "M1", 128, "Black")
+    p2 = Smartphone("Phone2", "Desc", 200, 3, 95, "M2", 256, "White")
+    assert p1 + p2 == 100*2 + 200*3
+
+def test_add_different_class_products():
+    p1 = Smartphone("Phone", "Desc", 100, 2, 90, "M1", 128, "Black")
+    p2 = LawnGrass("Grass", "Desc", 50, 10, "RU", "1w", "Green")
+    with pytest.raises(TypeError):
+        p1 + p2
+
+def test_add_non_product_to_category():
+    category = Category("Test", "Desc", [])
+    with pytest.raises(TypeError):
+        category.add_product("not a product")
