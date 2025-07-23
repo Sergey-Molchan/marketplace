@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
 
+
 class BaseProduct(ABC):
     """Абстрактный базовый класс для продуктов."""
+
     @abstractmethod
     def __init__(self, name: str, description: str, price: float, quantity: int):
         self.name = name
@@ -30,13 +32,20 @@ class BaseProduct(ABC):
 
 class LoggingMixin:
     """Миксин для логирования создания объектов."""
+
     def __init__(self, *args, **kwargs):
         print(f"Создан объект {self.__class__.__name__} с параметрами: {args}, {kwargs}")
         # Не вызываем super().__init__() здесь
 
+    def __repr__(self):
+        params = ', '.join([f"{k}={v!r}" for k, v in self.__dict__.items()
+                            if not k.startswith('_')])
+        return f"{self.__class__.__name__}({params})"
+
 
 class Product(BaseProduct, LoggingMixin):
     """Класс продукта, наследующий BaseProduct и LoggingMixin."""
+
     def __init__(self, name: str, description: str, price: float, quantity: int):
         # Вызываем __init__ только для BaseProduct
         BaseProduct.__init__(self, name, description, price, quantity)
@@ -73,6 +82,7 @@ class Product(BaseProduct, LoggingMixin):
 
 class Smartphone(Product):
     """Класс смартфона, наследующий Product."""
+
     def __init__(self, name: str, description: str, price: float, quantity: int,
                  efficiency: float, model: str, memory: int, color: str):
         super().__init__(name, description, price, quantity)
@@ -84,6 +94,7 @@ class Smartphone(Product):
 
 class LawnGrass(Product):
     """Класс газонной травы, наследующий Product."""
+
     def __init__(self, name: str, description: str, price: float, quantity: int,
                  country: str, germination_period: str, color: str):
         super().__init__(name, description, price, quantity)
