@@ -1,25 +1,26 @@
 from marketplace.product import Product
 from marketplace.category import Category
 
+
+
+
 if __name__ == '__main__':
+    # Тест создания продукта с нулевым количеством
+    try:
+        product_invalid = Product("Бракованный товар", "Неверное количество", 1000.0, 0)
+    except ValueError as e:
+        print("Возникла ошибка ValueError прерывающая работу программы при попытке добавить продукт с нулевым количеством")
+    else:
+        print("Не возникла ошибка ValueError при попытке добавить продукт с нулевым количеством")
+
+    # Создание валидных продуктов
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
     product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
 
-    print(str(product1))
-    print(str(product2))
-    print(str(product3))
+    # Работа с категориями
+    category1 = Category("Смартфоны", "Категория смартфонов", [product1, product2, product3])
+    print(f"Средняя цена в категории 'Смартфоны': {category1.middle_price():.2f} руб.")
 
-    category1 = Category(
-        "Смартфоны",
-        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
-        [product1, product2, product3]
-    )
-
-    print(str(category1))
-
-    print(category1.products)
-
-    print(product1 + product2)
-    print(product1 + product3)
-    print(product2 + product3)
+    category_empty = Category("Пустая категория", "Категория без продуктов", [])
+    print(f"Средняя цена в пустой категории: {category_empty.middle_price()} руб.")
