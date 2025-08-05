@@ -1,6 +1,10 @@
 from abc import ABC, abstractmethod
 
 
+class ZeroQuantityError(ValueError):
+    """Пользовательское исключение для товаров с нулевым количеством"""
+    pass
+
 class BaseProduct(ABC):
     """Абстрактный базовый класс для продуктов."""
 
@@ -44,10 +48,10 @@ class LoggingMixin:
 
 
 class Product(BaseProduct, LoggingMixin):
-    """Класс продукта, наследующий BaseProduct и LoggingMixin."""
-
     def __init__(self, name: str, description: str, price: float, quantity: int):
-        # Вызываем __init__ только для BaseProduct
+        if quantity == 0:
+            raise ZeroQuantityError("Товар с нулевым количеством не может быть добавлен")
+
         BaseProduct.__init__(self, name, description, price, quantity)
         LoggingMixin.__init__(self, name, description, price, quantity)
 
