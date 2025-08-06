@@ -58,3 +58,9 @@ def test_category_iterator():
     assert len(products) == 2
     assert products[0] == p1
     assert products[1] == p2
+
+
+def test_add_product_invalid_type():
+    category = Category("Test", "Desc", [])
+    result = category.add_product("not a product")  # Должно вызвать TypeError
+    assert result is False

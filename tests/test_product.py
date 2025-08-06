@@ -124,3 +124,9 @@ def test_add_product_output(capsys):
     captured = capsys.readouterr()
     assert "Товар успешно добавлен" in captured.out
     assert "Обработка добавления завершена" in captured.out
+
+
+def test_product_price_validation():
+    product = Product("Test", "Desc", 100, 5)
+    with pytest.raises(ValueError):
+        product.price = -50

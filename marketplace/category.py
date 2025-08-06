@@ -54,9 +54,3 @@ class Category:
         finally:
             print("Обработка добавления завершена")
 
-    def middle_price(self) -> float:
-        """Подсчет средней цены (для совместимости с main.py)"""
-        try:
-            return round(sum(p.price for p in self.__products) / len(self.__products), 2)
-        except ZeroDivisionError:
-            return 0.0
